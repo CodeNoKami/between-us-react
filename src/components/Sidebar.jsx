@@ -73,13 +73,13 @@ export default function Sidebar({ memories, setMemories, startDate, setStartDate
          </div>
          <div>
             <div className="text-base-content/60 text-xs mb-1">App Themes</div>
-            <div className="max-h-40 overflow-y-scroll grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 gap-2">
+            <div className="max-h-40 p-2 overflow-y-scroll grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 gap-2">
                {THEMES.map((t, i) => (
                   <button
                      key={t}
                      className={`
                   group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors cursor-pointer
-                  ${theme === t ? 'bg-base-200' : 'hover:bg-base-200/50'}
+                  ${theme === t ? 'ring-2' : 'hover:bg-base-200'}
                   `}
                      onClick={() => setTheme(t)}
                   >
