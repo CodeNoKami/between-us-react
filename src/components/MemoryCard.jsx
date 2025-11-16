@@ -11,15 +11,22 @@ const MemoryCard = ({ memory, close }) => {
                <X className="size-4" />
             </button>
 
-            {/* Photo */}
-            {memory.photo ? (
-               <img
-                  src={memory.photo}
-                  alt={memory.title}
-                  className="rounded mb-3 max-h-60 w-full object-cover shadow-sm"
-               />
+            {/* Photos */}
+            {memory.photo && memory.photo.length > 0 ? (
+               <div className="flex gap-2 p-2 overflow-x-auto mb-3">
+                  {memory.photo.map((p, index) => {
+                     return (
+                        <img
+                           key={index}
+                           src={p}
+                           alt={`Memory ${index}`}
+                           className="rounded max-h-60 w-60 object-cover shadow-sm shrink-0"
+                        />
+                     );
+                  })}
+               </div>
             ) : (
-               <div className="h-40 flex items-center justify-center opacity-60">No photo</div>
+               <div className="h-40 flex items-center justify-center opacity-60 mb-3">No photo</div>
             )}
 
             {/* Title */}

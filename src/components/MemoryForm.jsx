@@ -1,12 +1,43 @@
+import { X } from 'lucide-react';
 import { useState } from 'react';
+
+// Convert file → base64
+const fileToBase64 = (file) => {
+   return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+   });
+};
 
 export default function MemoryForm({ memory, setMemories, memories, close }) {
    const [title, setTitle] = useState(memory?.title || '');
    const [date, setDate] = useState(memory?.date || '');
    const [tags, setTags] = useState(memory?.tags?.join(', ') || '');
    const [desc, setDesc] = useState(memory?.desc || '');
-   const [photo, setPhoto] = useState(memory?.photo || '');
+   const [photos, setPhotos] = useState(memory?.photo ? memory.photo : []);
    const [favorite, setFavorite] = useState(memory?.favorite || false);
+
+   // ⭐ FIXED: Convert images to base64 instead of blob URLs
+   const handleFileChange = async (e) => {
+      const files = Array.from(e.target.files);
+
+      if (photos.length + files.length > 6) {
+         alert('Maximum of 6 images allowed');
+         return;
+      }
+
+      const base64Photos = await Promise.all(files.map((file) => fileToBase64(file)));
+
+      setPhotos((prev) => [...prev, ...base64Photos]);
+   };
+
+   const removePhoto = (index) => {
+      const updated = [...photos];
+      updated.splice(index, 1);
+      setPhotos(updated);
+   };
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -21,7 +52,7 @@ export default function MemoryForm({ memory, setMemories, memories, close }) {
             .map((t) => t.trim())
             .filter(Boolean),
          desc,
-         photo,
+         photo: photos, // now base64 images
          favorite,
       };
 
@@ -30,6 +61,7 @@ export default function MemoryForm({ memory, setMemories, memories, close }) {
       } else {
          setMemories([...memories, newMemory]);
       }
+
       close();
    };
 
@@ -70,12 +102,39 @@ export default function MemoryForm({ memory, setMemories, memories, close }) {
                onChange={(e) => setDesc(e.target.value)}
             />
 
-            <input
-               className="input input-bordered w-full mb-3"
-               placeholder="Photo URL"
-               value={photo}
-               onChange={(e) => setPhoto(e.target.value)}
-            />
+            {/* Photo upload */}
+            <label className="block mb-3">
+               <span className="label-text">Add Photos (max 6)</span>
+               <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleFileChange}
+                  className="file-input file-input-bordered w-full mt-1"
+               />
+            </label>
+
+            {/* Photo preview grid */}
+            {photos.length > 0 && (
+               <div className="grid grid-cols-3 gap-2 mb-3">
+                  {photos.map((photo, index) => (
+                     <div key={index} className="relative rounded overflow-hidden">
+                        <img
+                           src={photo}
+                           alt={`Memory ${index}`}
+                           className="w-full h-24 object-cover rounded"
+                        />
+                        <button
+                           type="button"
+                           className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full"
+                           onClick={() => removePhoto(index)}
+                        >
+                           <X className="size-4" />
+                        </button>
+                     </div>
+                  ))}
+               </div>
+            )}
 
             <label className="flex items-center gap-3 mb-3 cursor-pointer">
                <input

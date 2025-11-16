@@ -100,12 +100,19 @@ export default function Main({ memories, setMemories, startDate }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                {filtered.map((mem) => (
                   <div key={mem.id} className="card bg-base-200 rounded-lg p-3 shadow">
-                     {mem.photo ? (
-                        <img
-                           src={mem.photo}
-                           alt={mem.title}
-                           className="rounded mb-2 object-cover h-40 w-full"
-                        />
+                     {mem.photo.length > 0 ? (
+                        <div className="flex overflow-x-scroll mb-3 snap-mandatory snap-x gap-2">
+                           {mem.photo.map((p, index) => {
+                              return (
+                                 <img
+                                    key={index}
+                                    src={p}
+                                    alt={`Memory ${index}`}
+                                    className="rounded max-h-40 min-w-full object-cover shadow-sm mb-2 snap-center"
+                                 />
+                              );
+                           })}
+                        </div>
                      ) : (
                         <div className="h-40 flex items-center justify-center text-base-content/60">
                            No photo
