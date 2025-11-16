@@ -37,10 +37,10 @@ export default function Sidebar({ memories, setMemories, startDate, setStartDate
       <aside className="bg-base-200 p-4 rounded-lg flex flex-col gap-4 shadow-md">
          <div className="flex items-center gap-3 mb-4">
             <div className="bg-linear-to-tr from-primary to-secondary text-primary-content w-12 h-12 rounded-lg grid place-items-center font-bold">
-               BT
+               BUs
             </div>
             <div>
-               <h1 className="text-lg font-bold text-base-content">Been Together</h1>
+               <h1 className="text-lg font-bold text-base-content">Between Us</h1>
                <p className="text-xs text-base-content/60">
                   Memories timeline for two — sweet, simple, private
                </p>

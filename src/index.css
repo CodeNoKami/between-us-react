@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @plugin "daisyui";
+@import 'react-slideshow-image/dist/styles.css';
 
 @plugin "daisyui" {
    themes: all;

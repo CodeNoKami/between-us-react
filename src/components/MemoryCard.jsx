@@ -1,4 +1,6 @@
 import { X } from 'lucide-react';
+import { Fade } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
 
 const MemoryCard = ({ memory, close }) => {
    if (!memory) return null;
@@ -11,22 +13,38 @@ const MemoryCard = ({ memory, close }) => {
                <X className="size-4" />
             </button>
 
-            {/* Photos */}
+            {/* Photo Slideshow */}
             {memory.photo && memory.photo.length > 0 ? (
-               <div className="flex gap-2 p-2 overflow-x-auto mb-3">
-                  {memory.photo.map((p, index) => {
-                     return (
-                        <img
-                           key={index}
-                           src={p}
-                           alt={`Memory ${index}`}
-                           className="rounded max-h-60 w-60 object-cover shadow-sm shrink-0"
-                        />
-                     );
-                  })}
+               <div className="mb-4 mt-6 rounded overflow-hidden">
+                  <Fade duration={2500} transitionDuration={500} arrows={true}>
+                     {memory.photo.map((p, index) => (
+                        <div key={index} className="w-full flex justify-center">
+                           <img
+                              src={p}
+                              alt={`Memory ${index}`}
+                              className="max-h-60 w-full object-cover rounded-md shadow"
+                           />
+                        </div>
+                     ))}
+                  </Fade>
                </div>
             ) : (
                <div className="h-40 flex items-center justify-center opacity-60 mb-3">No photo</div>
+            )}
+
+            {/* Thumbnails */}
+            {memory.photo && memory.photo.length > 0 && (
+               <div className="mb-3 flex gap-2 justify-center">
+                  {memory.photo.map((p, idx) => (
+                     <div key={idx} className="size-8 rounded-md overflow-hidden">
+                        <img
+                           src={p}
+                           alt={`Thumbnail ${idx}`}
+                           className="w-full h-full object-cover"
+                        />
+                     </div>
+                  ))}
+               </div>
             )}
 
             {/* Title */}
@@ -48,7 +66,7 @@ const MemoryCard = ({ memory, close }) => {
             </div>
          </div>
 
-         {/* Backdrop (click to close) */}
+         {/* Backdrop */}
          <div className="modal-backdrop" onClick={close}></div>
       </div>
    );

@@ -6,7 +6,7 @@ import useThemeStore from './store/useThemeStore';
 function App() {
    const STORAGE_KEY = 'beenTogether.memories.v3';
    const START_DATE_KEY = 'beenTogether.start';
-   const defaultStart = '2020-03-03';
+   const defaultStart = '2020-04-20';
 
    const { theme } = useThemeStore();
 

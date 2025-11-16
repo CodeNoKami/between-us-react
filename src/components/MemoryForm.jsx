@@ -5,7 +5,26 @@ import { useState } from 'react';
 const fileToBase64 = (file) => {
    return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
+      reader.onload = (e) => {
+         const img = new Image();
+         img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 900; // good for phones
+
+            const scale = MAX_WIDTH / img.width;
+            canvas.width = MAX_WIDTH;
+            canvas.height = img.height * scale;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // 0.7 = 70% quality (good balance)
+            const compressed = canvas.toDataURL('image/jpeg', 0.7);
+            resolve(compressed);
+         };
+         img.onerror = reject;
+         img.src = e.target.result;
+      };
       reader.onerror = reject;
       reader.readAsDataURL(file);
    });

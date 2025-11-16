@@ -3,6 +3,10 @@
 import { format } from 'date-fns';
 import { Eye, Heart, SquarePen, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+
 import MemoryCard from './MemoryCard';
 import MemoryForm from './MemoryForm';
 
@@ -100,19 +104,19 @@ export default function Main({ memories, setMemories, startDate }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                {filtered.map((mem) => (
                   <div key={mem.id} className="card bg-base-200 rounded-lg p-3 shadow">
+                     {/* ---------- SLIDER ADDED HERE ---------- */}
                      {mem.photo.length > 0 ? (
-                        <div className="flex overflow-x-scroll mb-3 snap-mandatory snap-x gap-2">
-                           {mem.photo.map((p, index) => {
-                              return (
+                        <Slide duration={2200} transitionDuration={500} arrows={true}>
+                           {mem.photo.map((p, index) => (
+                              <div key={index} className="w-full flex justify-center">
                                  <img
-                                    key={index}
                                     src={p}
                                     alt={`Memory ${index}`}
-                                    className="rounded max-h-40 min-w-full object-cover shadow-sm mb-2 snap-center"
+                                    className="rounded h-40 w-full object-cover shadow-sm mb-2"
                                  />
-                              );
-                           })}
-                        </div>
+                              </div>
+                           ))}
+                        </Slide>
                      ) : (
                         <div className="h-40 flex items-center justify-center text-base-content/60">
                            No photo
