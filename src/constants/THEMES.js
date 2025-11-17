@@ -34,4 +34,7 @@ export const THEMES = [
    'cloudy',
    'dark-plattle',
    'purple',
+   'custom-theme-1',
+   'custom-theme-2',
+   'custom-theme-3',
 ];

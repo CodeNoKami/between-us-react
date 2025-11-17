@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import Main from './components/Main';
 import Sidebar from './components/Sidebar';
 import useThemeStore from './store/useThemeStore';
@@ -32,6 +33,7 @@ function App() {
          data-theme={theme}
          className="select-none min-h-screen bg-base-200 text-base-content p-4 flex justify-center font-sans"
       >
+         <Toaster />
          <div className="max-w-[1100px] w-full grid grid-cols-1 md:grid-cols-[360px_1fr] gap-6">
             <Sidebar
                memories={memories}

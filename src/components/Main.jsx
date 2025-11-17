@@ -103,7 +103,10 @@ export default function Main({ memories, setMemories, startDate }) {
          ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                {filtered.map((mem) => (
-                  <div key={mem.id} className="card bg-base-200 rounded-lg p-3 shadow">
+                  <div
+                     key={mem.id}
+                     className="card bg-base-200 rounded-lg p-3 shadow overflow-hidden"
+                  >
                      {/* ---------- SLIDER ADDED HERE ---------- */}
                      {mem.photo.length > 0 ? (
                         <Slide duration={2200} transitionDuration={500} arrows={true}>
@@ -151,19 +154,22 @@ export default function Main({ memories, setMemories, startDate }) {
                            className="btn btn-sm btn-info"
                            onClick={() => handleViewModel(mem)}
                         >
-                           <Eye className="size-4" /> View
+                           <Eye className="size-4" />
                         </button>
 
                         <div className="flex gap-2">
-                           <button className="btn btn-ghost btn-sm" onClick={() => handleEdit(mem)}>
-                              <SquarePen className="size-4" /> Edit
+                           <button
+                              className="btn btn-warning btn-sm"
+                              onClick={() => handleEdit(mem)}
+                           >
+                              <SquarePen className="size-4" />
                            </button>
 
                            <button
                               className="btn btn-sm btn-error"
                               onClick={() => handleDelete(mem.id)}
                            >
-                              <Trash2 className="size-4" /> Delete
+                              <Trash2 className="size-4" />
                            </button>
                         </div>
                      </div>

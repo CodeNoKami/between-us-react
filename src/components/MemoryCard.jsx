@@ -59,7 +59,7 @@ const MemoryCard = ({ memory, close }) => {
             {/* Tags */}
             <div className="flex flex-wrap gap-2">
                {memory.tags?.map((tag) => (
-                  <span key={tag} className="badge badge-outline px-3 py-2">
+                  <span key={tag} className="badge badge-soft badge-primary ring-1 px-3 py-2">
                      #{tag}
                   </span>
                ))}

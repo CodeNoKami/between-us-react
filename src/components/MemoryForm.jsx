@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 // Convert file → base64
 const fileToBase64 = (file) => {
@@ -77,8 +78,10 @@ export default function MemoryForm({ memory, setMemories, memories, close }) {
 
       if (memory) {
          setMemories(memories.map((m) => (m.id === memory.id ? newMemory : m)));
+         toast.success('Memory updated!');
       } else {
          setMemories([...memories, newMemory]);
+         toast.success('Memory added!');
       }
 
       close();
