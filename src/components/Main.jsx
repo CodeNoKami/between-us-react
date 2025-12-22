@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { Eye, Heart, SquarePen, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { Slide } from 'react-slideshow-image';
+import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 
 import MemoryCard from './MemoryCard';
@@ -109,7 +109,7 @@ export default function Main({ memories, setMemories, startDate }) {
                   >
                      {/* ---------- SLIDER ADDED HERE ---------- */}
                      {mem.photo.length > 0 ? (
-                        <Slide duration={2200} transitionDuration={500} arrows={true}>
+                        <Fade duration={2200} transitionDuration={500} arrows={true}>
                            {mem.photo.map((p, index) => (
                               <div key={index} className="w-full flex justify-center">
                                  <img
@@ -119,7 +119,7 @@ export default function Main({ memories, setMemories, startDate }) {
                                  />
                               </div>
                            ))}
-                        </Slide>
+                        </Fade>
                      ) : (
                         <div className="h-40 flex items-center justify-center text-base-content/60">
                            No photo
